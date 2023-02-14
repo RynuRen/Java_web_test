@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+
+<head>
+    <th:block th:replace="fragments/head :: headFg(title='자유게시판')"></th:block>
+    <style type="text/css">
+        table,
+        td,
+        th {
+            border-collapse: collapse;
+            border: 0.1px solid black;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        table {
+            width: 600px;
+            height: auto;
+            margin: auto;
+            font-size: 85%;
+            font-family: "맑은 고딕", "Malgun Gothic", 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo", sans-serif;
+        }
+    </style>
+</head>
+
+<div id="wrapper" layout:fragment="content" style="text-align: center;">
+    <h2>Free_Board</h2>
+    <table>
+        <tr style="background-color: LightGray;">
+            <td width="40px" style="text-align: center;">번호</td>
+            <td style="padding-left: 5px;">제목</td>
+            <td width="80px" style="padding-left: 5px;">작성자</td>
+            <td width="50px" style="text-align: center;">작성일</td>
+            <td width="44px" style="text-align: center;">조회수</td>
+            <td width="30px" style="text-align: center;">추천</td>
+        </tr>
+        <th:block th:unless="${#lists.isEmpty(list)}">
+            <th:block th:each="board : ${list}">
+                <tr>
+                    <td th:text="${board.rnum}" style="text-align: center;"></td>
+                    <td style="padding-left: 5px;">
+                        <a th:href="@{/board/detail(boardId=${board.boardId})}">[[${board.boardTitle}]]</a>
+                    </td>
+                    <td th:text="${board.boardWriter}" style="padding-left: 5px;"></td>
+                    <th:block th:with="nowDay=${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}">
+                        <!-- 작성일이 오늘이면 시간만 표시 -->
+                        <th:block th:if="${nowDay} == ${#dates.format(board.boardCreateDate, 'yyyy-MM-dd')}">
+                            <td th:text="${#dates.format(board.boardCreateDate, 'HH:mm')}" style="text-align: center;">
+                            </td>
+                        </th:block>
+                        <!-- 작성일이 오늘이 아니면 월, 일만 표시 -->
+                        <th:block th:unless="${nowDay} == ${#dates.format(board.boardCreateDate, 'yyyy-MM-dd')}">
+                            <td th:text="${#dates.format(board.boardCreateDate, 'MM-dd')}" style="text-align: center;">
+                            </td>
+                        </th:block>
+                    </th:block>
+                    <td th:text="${board.boardViews}" style="text-align: center;"></td>
+                    <td th:text="${board.boardThumbUp}" style="text-align: center;"></td>
+                </tr>
+            </th:block>
+        </th:block>
+        <th:block th:if="${#lists.isEmpty(list)}">
+            <tr>
+                <td colspan="6">게시글이 존재하지 않습니다.</td>
+            </tr>
+        </th:block>
+        <th:block th:if="${session.user} != null">
+            <tr>
+                <td colspan="6" style="text-align:right;">
+                    <input type="button" value="글쓰기" onclick="location.href='/board/create'">
+                </td>
+            </tr>
+        </th:block>
+    </table>
+    <div>
+        <th:block th:if="${page} > 1">
+            <a th:href="@{/board/list(page=${page} - 1)}">&lt</a>
+        </th:block>
+        <th:block th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page}==${pageNumber}" th:text="${pageNumber}" style="font-weight:bold"></a>
+            <a th:unless="${page}==${pageNumber}" th:href="@{/board/list(page=${pageNumber})}"
+                th:text="${pageNumber}"></a>
+        </th:block>
+        <th:block th:if="${preLastPage} >= ${page}">
+            <a th:href="@{/board/list(page=${page} + 1)}">&gt</a>
+        </th:block>
+    </div>
+
+</div>
+
+</html>

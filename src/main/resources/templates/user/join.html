@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+
+<head>
+    <th:block th:replace="fragments/head :: headFg(title='Create Account')"></th:block>
+</head>
+
+<body>
+    <div id="wrapper" layout:fragment="content" style="text-align: center;">
+        <h2>Create Account</h2>
+        <div style="width:65%; text-align:right">
+            <form action="/user/join" method="post">
+                ID* : <input type="text" placeholder="아이디" name="userId" required /><br /><br />
+                Password* : <input type="password" placeholder="비밀번호" name="userPw" minlength=8 required /><br /><br />
+                Nickname* : <input type="text" placeholder="별명" name="userNick" required /><br /><br />
+                E-mail : <input type="email" placeholder="이메일" name="userEmail" /><br /><br />
+                (*필수) <input type="submit" value="생성" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

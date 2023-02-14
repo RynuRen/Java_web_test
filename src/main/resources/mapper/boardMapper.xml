@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ac.sesac.springboot.webproject.mapper.BoardMapper">
+    <select id="getTotal" resultType="int">
+        SELECT count(*) AS totalCount FROM board WHERE boardDel != 0
+    </select>
+    <select id="getList" parameterType="int" resultType="kr.ac.sesac.springboot.webproject.model.Board">
+        SELECT @rownum:=@rownum + 1 AS rnum, boardId, boardTitle, boardWriter, boardCreateDate, boardViews, boardThumbUp
+        FROM board, (SELECT @rownum:=0) R WHERE boardDel != 0
+        ORDER BY boardCreateDate DESC
+        LIMIT #{startPost}, #{countList}
+        <!-- SELECT B.rnum, B.boardTitle, B.boardWriter, B.boardCreateDate, B.boardViews, B.boardThumbUp, B.boardThumbDown
+        FROM (
+            SELECT @rownum:=@rownum+1 AS rnum, A.boardTitle, A.boardWriter, A.boardCreateDate, A.boardViews, A.boardThumbUp, A.boardThumbDown
+            FROM (
+                SELECT boardTitle, boardWriter, boardCreateDate, boardViews, boardThumbUp, boardThumbDown
+                FROM board ORDER BY boardCreateDate DESC) A, (SELECT @rownum:=0) TMP 
+            WHERE @rownum &lt;= (#{page} * #{countList}) - 1) B
+        WHERE B.rnum &gt;= ((#{page} - 1) * #{countList} + 1); -->
+    </select>
+    <insert id="putBoard" parameterType="kr.ac.sesac.springboot.webproject.model.Board">
+        INSERT INTO board VALUES(NULL, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardWriterId}, now(), NULL, 0, 0, 0, 1)
+    </insert>
+    <select id="selectBoard" parameterType="int" resultType="kr.ac.sesac.springboot.webproject.model.Board">
+        SELECT * FROM board WHERE boardId = #{boardId} AND boardDel != 0
+    </select>
+    <update id="updateViews" parameterType="kr.ac.sesac.springboot.webproject.model.Board">
+        UPDATE board SET boardViews=boardViews+1
+        WHERE boardId = #{boardId}
+    </update>
+    <update id="updateBoard" parameterType="kr.ac.sesac.springboot.webproject.model.Board">
+        UPDATE board SET boardTitle=#{boardTitle}, boardContent=#{boardContent}, boardUpdateDate=now()
+        WHERE boardId = #{boardId}
+    </update>
+    <update id="deleteBoard" parameterType="int">
+        UPDATE board SET boardDel=0 WHERE boardId = #{boardId}
+    </update>
+    <!-- <delete id="deleteBoard" parameterType="int">
+        DELETE FROM board WHERE boardId = #{boardId}
+    </delete> -->
+</mapper>

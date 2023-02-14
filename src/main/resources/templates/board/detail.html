@@ -1,0 +1,83 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+
+<head>
+    <th:block th:replace="fragments/head :: headFg(title='자유게시판')"></th:block>
+    <style type="text/css">
+        table,
+        td,
+        th {
+            border-collapse: collapse;
+            border: 0.1px solid black;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        table {
+            width: 600px;
+            height: auto;
+            margin: auto;
+            font-size: 85%;
+            font-family: "맑은 고딕", "Malgun Gothic", 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo", sans-serif;
+        }
+    </style>
+</head>
+
+<div id="wrapper" layout:fragment="content" style="text-align: center;">
+    <h2>Free_Board</h2>
+    <table>
+        <form action="/board/edit" method="get">
+            <tr style="background-color:LightGray;">
+                <td width="10%" style="text-align:left; padding-left: 5px;">제목</td>
+                <td width="70%" style="text-align:left;">[[${board.boardTitle}]]</td>
+                <td width="10%" tyle="text-align:right;">조회수</td>
+                <td width="10%" style="text-align:left; padding-left: 5px;">[[${board.boardViews}]]</td>
+            </tr>
+
+            <tr>
+                <td style="padding-left: 5px;">작성자</td>
+                <td>[[${board.boardWriter}]]</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding-left: 5px;">작성일</td>
+                <td colspan="3" style="padding-right: 5px; text-align: right;">
+                    [[${#dates.format(board.boardCreateDate, 'yyyy-MM-dd HH:mm:ss')}]]
+                </td>
+            </tr>
+            <th:block th:unless="${board.boardUpdateDate} == null">
+                <tr>
+                    <td style="padding-left: 5px;">수정일</td>
+                    <td colspan="3" style="padding-right: 5px; text-align: right;">
+                        [[${#dates.format(board.boardUpdateDate, 'yyyy-MM-dd HH:mm:ss')}]]
+                    </td>
+                </tr>
+            </th:block>
+            <tr>
+                <td colspan="4" style="vertical-align: text-top; padding: 5px; width:100%; height:300px">
+                    [[${board.boardContent}]]
+                </td>
+            </tr>
+            <th:block th:unless="${session.user} == null">
+                <th:block th:if="${session.user.userId} == ${board.boardWriterId}">
+                    <tr>
+                        <td colspan="4" style="text-align: right; padding-right: 5px;">
+                            <input type="button" value="게시글 수정"
+                                th:onclick="|location.href='@{edit(boardId=${board.boardId})}'|">
+                            <input type="button" value="게시글 삭제"
+                                th:onclick="|location.href='@{delete(boardId=${board.boardId})}'|">
+                        </td>
+                    </tr>
+                </th:block>
+            </th:block>
+        </form>
+    </table>
+    <div style="width: 600px; text-align:right;">
+        <a href="list">뒤로</a>
+    </div>
+
+</div>
+
+</html>

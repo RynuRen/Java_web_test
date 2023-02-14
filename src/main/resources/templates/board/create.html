@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+
+<head>
+    <th:block th:replace="fragments/head :: headFg(title='자유게시판')"></th:block>
+    <style type="text/css">
+        table,
+        td,
+        th {
+            border-collapse: collapse;
+            border: 0.1px solid black;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        table {
+            width: 600px;
+            height: auto;
+            margin: auto;
+            font-size: 85%;
+            font-family: "맑은 고딕", "Malgun Gothic", 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo", sans-serif;
+        }
+    </style>
+</head>
+
+<div id="wrapper" layout:fragment="content" style="text-align: center;">
+    <h2>Free_Board</h2>
+    <table>
+        <tr style="background-color:LightGray;">
+            <td colspan="2" style="text-align: center; vertical-align: middle; font-size: 20px;">글 작성</td>
+        </tr>
+        <form action="/board/create" method="post">
+            <tr>
+                <td width="80px" style="padding-left: 5px;">작성자</td>
+                <td>[[${session.user.userNick}]]</td>
+            </tr>
+            <tr>
+                <td style="padding-left: 5px;">제목</td>
+                <td style="padding-right:5px;">
+                    <textarea name="boardTitle" style="width:100%; height:21px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 5px;">
+                    <textarea name="boardContent" style="width:100%; height:300px"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right; padding-right: 5px;"><input type="submit" value="작성 완료"></td>
+            </tr>
+        </form>
+    </table>
+    <div style="width: 600px; text-align:right;">
+        <a href="list">뒤로</a>
+    </div>
+
+</div>
+
+</html>

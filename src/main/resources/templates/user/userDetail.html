@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+
+<head>
+    <th:block th:replace="fragments/head :: headFg(title='Account Detail')"></th:block>
+</head>
+
+<body>
+    <div id="wrapper" layout:fragment="content" style="text-align: center; height: 500px;">
+        <h2>Account Detail</h2>
+        <div style="width:65%; text-align:right">
+            <form action="/user/userDetail" method="post">
+                ID* : <input type="Text" name="userId" th:value="${session.user.userId}" readonly="" /><br /><br />
+                Current Password* : <input type="password" placeholder="현재 비밀번호" name="userPw" minlength=8
+                    required /><br /><br />
+                Password : <input type="password" placeholder="바꿀 비밀번호" name="fixPw" minlength=8 /><br /><br />
+                Nickname* : <input type="text" name="userNick" th:value="${session.user.userNick}"
+                    required /><br /><br />
+                E-mail : <input type="email" name="userEmail" th:value="${session.user.userEmail}" /><br /><br />
+                Account creation date : [[${#dates.format(session.user.userCreateDate, 'yyyy-MM-dd')}]]<br /><br />
+                (*필수) <input type="submit" value="수정" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

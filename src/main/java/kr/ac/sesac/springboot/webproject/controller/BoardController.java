@@ -82,6 +82,7 @@ public class BoardController {
     @GetMapping("detail")
     public String detail(Model model, HttpSession session, @RequestParam int boardId) {
         Board board = boardMapper.selectBoard(boardId);
+        board.setBoardContent(board.getBoardContent().replaceAll("(\\r\\n)+|[\\r\\n]+", "<br>"));
         boardMapper.updateViews(boardId);
         model.addAttribute("board", board);
         return "board/detail";

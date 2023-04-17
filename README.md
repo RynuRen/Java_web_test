@@ -3,6 +3,12 @@
 ## 프로젝트 소개
 Spring Boot를 사용하여 회원 기능이 있고 기본적인 Create, Read, Update, Delete 기능을 가진 게시판을 구현한 간단한 프로젝트입니다.
 
+### 프로젝트 기간
+2022.10.27 ~ 2022.10.28
+
+### 참여 인원
+@RynuRen
+
 ### 사용 기술
 <p>
   <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"/>

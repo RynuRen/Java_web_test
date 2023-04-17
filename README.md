@@ -4,10 +4,18 @@
 Spring Boot를 사용하여 회원 기능이 있고 기본적인 Create, Read, Update, Delete 기능을 가진 게시판을 구현한 간단한 프로젝트입니다.
 
 ### 사용 기술
-Java, Spring Boot, Thymeleaf, MySQL, HTML/CSS
+<p>
+  <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Maven-C71A36?style=flat-square&logo=apachemaven&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=thymeleaf&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=mariadb&logoColor=white"/>
+  <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+</p>
 
 ### 개발 환경
-Windows10, JDK11, vscode, MariaDB, Spring Boot(v2.6.13), maven, myBatis, Thymeleaf, thymeleaf-layout, Lombok
+Windows10, JDK11, vscode, MariaDB, Spring Boot(v2.6.13), maven, myBatis, thymeleaf, thymeleaf-layout, Lombok
 
 ## 구상
 지금까지 배운 account관련 기능들과 게시판 관련 기능들을 기본으로 평소에 쓰던 게시판들을 생각하며 있어야 할 기능들을 하나씩 추가해 보기로 했습니다. 특히 게시판 리스트의 페이지네이션 구현으로 향후 비슷한 프로젝트를 진행할 경우 참고할 수 있을 것입니다.

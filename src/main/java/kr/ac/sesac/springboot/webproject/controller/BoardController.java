@@ -27,8 +27,8 @@ public class BoardController {
     @GetMapping("list")
     public String list(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         ////수정할 것////
-        int countPage = 3; // 한 화면에 출력될 페이지 수
-        int countPost = 3; // 한 페이지에 출력할 게시글 수
+        int countPage = 10; // 한 화면에 출력될 페이지 수
+        int countPost = 10; // 한 페이지에 출력할 게시글 수
         ////수정할 것////
         int totalCount = boardMapper.getTotal(); // BD에 등록된 총 게시글 수
 

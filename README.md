@@ -7,7 +7,7 @@ Spring Boot를 사용하여 회원 기능이 있고 기본적인 Create, Read, U
 2022.10.27 ~ 2022.10.28
 
 ### 참여 인원
-@RynuRen
+[@RynuRen](https://github.com/RynuRen)
 
 ### 사용 기술
 <p>
